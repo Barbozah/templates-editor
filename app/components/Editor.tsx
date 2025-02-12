@@ -122,7 +122,7 @@ export function Editor() {
                         }
                         placeholder={
                           <span className="pointer-events-none absolute top-7 mt-px left-8 text-muted-foreground w-full h-full">
-                            Tente mencionar um usuário com @
+                            Crie um novo bloco...
                           </span>
                         }
                         ErrorBoundary={LexicalErrorBoundary}

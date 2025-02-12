@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import { getRoomId } from "../config";
 
 export const liveblocks = new LiveblocksNode({
-  secret: process.env.LIVEBLOCKS_SECRET_KEY as string,
+  secret: 'sk_dev_c8MBJaebffGJ7q1q4cA-yDR8Av3b5XncJ5zTGtEzNjeTGUPV04Hyf3TSso8fPCER',
 });
 
 export type RoomInfo = { name: string; url: string };
@@ -16,7 +16,7 @@ export async function getLatestRoom() {
   return rooms.length ? (rooms[0] as TypedRoomData) : null;
 }
 
-export async function createRoom(title: string = "Untitled document") {
+export async function createRoom(title: string = "Documento sem título") {
   const pageId = nanoid();
 
   const room = (await liveblocks.createRoom(getRoomId(pageId), {
@@ -55,4 +55,8 @@ export async function getRoomTitle(roomId: string) {
     console.log(err);
     return "";
   }
+}
+
+export async function deleteRoom(roomId: string) {
+  await liveblocks.deleteRoom(roomId);
 }

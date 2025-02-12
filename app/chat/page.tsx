@@ -78,7 +78,6 @@ function Chat() {
         </div>
       </form>
 
-      <LiveblocksBadge />
     </div>
   );
 }
@@ -109,7 +108,7 @@ function MessageLine({ message }: { message: Message }) {
       setLoading(true);
       const room = await createRoomWithLexicalDocument(
         content,
-        title || "Untitled document"
+        title || "Documento sem título"
       );
       router.push(getPageUrl(room.id));
     },
@@ -160,28 +159,5 @@ function MessageLine({ message }: { message: Message }) {
         </div>
       )}
     </div>
-  );
-}
-
-function LiveblocksBadge() {
-  return (
-    <a
-      className="fixed top-4 right-4"
-      href="https://liveblocks.io"
-      rel="noreferrer"
-      target="_blank"
-    >
-      <picture>
-        <source
-          srcSet="https://liveblocks.io/badge-dark.svg"
-          media="(prefers-color-scheme: dark)"
-        />
-        <img
-          src="https://liveblocks.io/badge-light.svg"
-          alt="Made with Liveblocks"
-          className=""
-        />
-      </picture>
-    </a>
   );
 }

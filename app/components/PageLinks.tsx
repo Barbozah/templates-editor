@@ -1,9 +1,10 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import Link from "next/link";
-import { TypedRoomDataWithInfo } from "../utils/liveblocks";
+import { deleteRoom, TypedRoomDataWithInfo } from "../utils/liveblocks";
 import { usePageLinks } from "../hooks/usePageLinks";
+import { DeleteIcon } from "../icons/DeleteIcon";
 
 // Infinitely load all pages
 export function PageLinks() {
@@ -14,7 +15,7 @@ export function PageLinks() {
     usePageLinks();
 
   if (error) {
-    return <div className="p-2">Error loading pages</div>;
+    return <div className="p-2">Erro ao carregar templates</div>;
   }
 
   if (isLoading) {
@@ -34,7 +35,7 @@ export function PageLinks() {
   if (!data || data[0].rooms.length === 0) {
     return (
       <div className="px-5 py-3.5 text-sm text-gray-700 font-medium">
-        No pages have been created
+        Nenhum template foi criado
       </div>
     );
   }
@@ -57,7 +58,7 @@ export function PageLinks() {
           disabled={isLoadingMore}
           className="text-center py-1.5 px-3 bg-gray-200/60 transition-colors rounded text-medium text-gray-700 hover:text-gray-900 pr-2 text-sm font-medium data-[active]:bg-gray-200/80 data-[active]:text-gray-900 disabled:opacity-70 disabled:aniamte-pulse"
         >
-          {isLoadingMore ? "Loading…" : "Load more"}
+          {isLoadingMore ? "Carregando…" : "Carregar mais"}
         </button>
       ) : null}
     </div>
@@ -71,6 +72,12 @@ function PageLink({
   room: TypedRoomDataWithInfo;
   active: boolean;
 }) {
+
+  async function deletePage() {
+    await deleteRoom(room.id);
+    redirect("/");
+  }
+
   return (
     <div
       data-active={active || undefined}
@@ -78,9 +85,14 @@ function PageLink({
     >
       <Link href={room.info.url} className="py-1.5 px-3 flex-1 truncate">
         {room.info.name || (
-          <div className="italic font-normal">Empty title</div>
+          <div className="italic font-normal">Sem título</div>
         )}
       </Link>
+      <form action={deletePage} className="flex items-center">
+        <button>
+          <DeleteIcon className="w-4 h-4" />
+        </button>
+      </form>
     </div>
   );
 }

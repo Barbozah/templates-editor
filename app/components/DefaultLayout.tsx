@@ -29,7 +29,7 @@ export default async function DefaultLayout({
           </div>
           <form action={create} className="flex items-center">
             <button>
-              <span className="sr-only">Create new page</span>
+              <span className="sr-only">Criar novo template</span>
               <CreateIcon className="w-4 h-4" />
             </button>
           </form>
@@ -37,10 +37,10 @@ export default async function DefaultLayout({
 
         <div className="p-2 flex flex-col gap-0.5">
           <Notifications />
-          <CreateWithAiLink />
+          {/* <CreateWithAiLink /> */}
         </div>
 
-        <div className="text-xs font-medium text-gray-500 mt-6 pl-2">Pages</div>
+        <div className="text-xs font-medium text-gray-500 mt-6 pl-2">Templates</div>
 
         <PageLinks />
       </div>

@@ -32,7 +32,7 @@ export function Notifications() {
       <Dialog.Trigger className="flex relative items-center justify-between whitespace-nowrap rounded-md font-medium transition-colors w-full px-2 py-1.5 hover:bg-gray-200/80">
         <div className="flex items-center gap-1.5 flex-1 text-sm text-gray-700 pointer-events-none">
           <InboxIcon className="w-5 h-5" />
-          Inbox
+          Caixa de entrada
         </div>
 
         <ClientSideSuspense fallback={null}>
@@ -85,7 +85,7 @@ function Inbox() {
           onClick={markAllNotificationsAsRead}
         >
           <MailReadIcon className="w-4 h-4 opacity-70" />
-          Mark all as read
+          Marcar todas como lidas
         </button>
         <button
           className="inline-flex gap-1.5 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-8 px-2 hover:bg-gray-100 text-red-600 hover:text-red-700"
@@ -93,7 +93,7 @@ function Inbox() {
           onClick={deleteAllNotifications}
         >
           <MailDeleteIcon className="w-4 h-4 opacity-70" />
-          Delete all
+          Remover tudo
         </button>
       </div>
 
@@ -102,7 +102,7 @@ function Inbox() {
         <div className="h-full overflow-y-auto">
           {inboxNotifications.length === 0 ? (
             <div className="flex items-center justify-center p-6 text-muted-foreground">
-              No notifications yet
+              Sem notificações ainda
             </div>
           ) : (
             <InboxNotificationList>

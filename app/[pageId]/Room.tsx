@@ -21,7 +21,7 @@ export function Room({
         cursor: null,
       }}
       initialStorage={{
-        title: "Untitled document",
+        title: "Documento sem título",
       }}
     >
       {children}

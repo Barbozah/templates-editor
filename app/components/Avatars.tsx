@@ -13,7 +13,7 @@ export function Avatars() {
             <AvatarPlaceholder />
           </div>
           <div className="ml-2 text-gray-500 text-sm select-none">
-            1 user editing
+            1 usuário editando
           </div>
         </div>
       }
@@ -49,7 +49,7 @@ function AvatarStack() {
       </div>
 
       <div className="ml-2 text-gray-500 text-sm select-none">
-        {users.length + 1} user{users.length ? "s" : ""} editing
+        {users.length + 1} usuário{users.length ? "s" : ""} editando
       </div>
     </div>
   );

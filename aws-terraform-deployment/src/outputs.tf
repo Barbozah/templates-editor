@@ -1,11 +1,7 @@
-output "instance_id" {
-  value = aws_instance.example.id
+output "ecs_cluster_id" {
+  value = aws_ecs_cluster.app_cluster.id
 }
 
-output "instance_public_ip" {
-  value = aws_instance.example.public_ip
-}
-
-output "instance_private_ip" {
-  value = aws_instance.example.private_ip
+output "ecs_service_name" {
+  value = aws_ecs_service.app_service.name
 }

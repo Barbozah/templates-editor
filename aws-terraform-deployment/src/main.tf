@@ -1,26 +1,41 @@
-resource "aws_instance" "example" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "ExampleInstance"
-  }
+provider "aws" {
+  region = "us-east-1"
 }
 
-resource "aws_security_group" "example" {
-  name        = "example_sg"
-  description = "Allow SSH and HTTP traffic"
+resource "aws_ecs_cluster" "app_cluster" {
+  name = "app-cluster"
+}
+
+resource "aws_ecs_task_definition" "app_task" {
+  family                   = "app-task"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+
+  container_definitions = jsonencode([
+    {
+      name      = "app"
+      image     = "609379554646.dkr.ecr.us-east-1.amazonaws.com/templates-editor:latest"
+      essential = true
+      portMappings = [
+        {
+          containerPort = 3000
+          hostPort      = 3000
+        }
+      ]
+    }
+  ])
+}
+
+resource "aws_security_group" "ecs_security_group" {
+  name        = "ecs_security_group"
+  description = "Allow HTTP traffic"
+  vpc_id      = var.vpc_id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 3000
+    to_port     = 3000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -33,10 +48,15 @@ resource "aws_security_group" "example" {
   }
 }
 
-output "instance_id" {
-  value = aws_instance.example.id
-}
+resource "aws_ecs_service" "app_service" {
+  name            = "app-service"
+  cluster         = aws_ecs_cluster.app_cluster.id
+  task_definition = aws_ecs_task_definition.app_task.arn
+  desired_count   = 1
+  launch_type     = "FARGATE"
 
-output "instance_public_ip" {
-  value = aws_instance.example.public_ip
+  network_configuration {
+    subnets         = var.subnet_ids
+    security_groups = var.security_group_ids
+  }
 }

@@ -1,26 +1,19 @@
 variable "aws_region" {
-  description = "A região da AWS onde os recursos serão criados."
-  type        = string
-  default     = "sa-east-1"
+  description = "The AWS region to deploy to"
+  default     = "us-east-1"
 }
 
-variable "instance_type" {
-  description = "O tipo da instância EC2 a ser criada."
-  type        = string
-  default     = "t2.micro"
+variable "subnet_ids" {
+  description = "The subnets to deploy the ECS service"
+  type        = list(string)
 }
 
-variable "key_name" {
-  description = "O nome da chave SSH para acessar a instância EC2."
-  type        = string
+variable "security_group_ids" {
+  description = "The security groups to attach to the ECS service"
+  type        = list(string)
 }
 
 variable "vpc_id" {
-  description = "O ID da VPC onde os recursos serão criados."
-  type        = string
-}
-
-variable "subnet_id" {
-  description = "O ID da sub-rede onde a instância EC2 será lançada."
+  description = "The ID of the VPC"
   type        = string
 }

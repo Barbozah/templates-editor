@@ -17,3 +17,8 @@ variable "vpc_id" {
   description = "The ID of the VPC"
   type        = string
 }
+
+variable "execution_role_arn" {
+  description = "ARN da role de execução para a tarefa ECS"
+  type        = string
+}
